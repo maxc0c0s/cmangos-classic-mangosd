@@ -5,6 +5,11 @@ then
   echo 'You need to specify the $CMANGOS_VERSION environment variable, which is the cmangos/mangos-classic version'
   exit
 fi
+if [ -z $TIMEZONE ]
+then
+  echo 'You need to specify the $TIMEZONE environment variable, which is the time zone where the server will be running'
+  exit
+fi
 
 cd /tmp
 if [ ! -f "./cmangos/bin/mangosd" ]
@@ -18,6 +23,8 @@ then
   # TODO So ugly...replace this sleep by a check to make sure the db-filler is over...maybe when it stops pinging.
   sleep 30
 fi
+
+echo $TIMEZONE > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 
 cd /tmp/cmangos/bin
 /tmp/wait-for-it.sh db:3306
