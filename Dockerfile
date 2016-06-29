@@ -2,9 +2,8 @@ FROM ubuntu:14.04
 
 RUN apt-get update
 RUN apt-get install -y git libmysql++-dev libboost-all-dev
-RUN git clone https://github.com/vishnubob/wait-for-it.git /tmp/
+RUN git clone https://github.com/vishnubob/wait-for-it.git
 
-COPY entrypoint.sh /tmp
-ONBUILD COPY /bin/* /tmp/
+COPY entrypoint.sh /
 
-ENTRYPOINT ["/bin/bash","/tmp/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
